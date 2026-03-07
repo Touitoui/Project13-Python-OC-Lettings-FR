@@ -3,6 +3,11 @@ from django.core.validators import MaxValueValidator, MinLengthValidator
 
 
 class Address(models.Model):
+    """Model representing a physical address.
+
+    Related to :model:`lettings.Letting` via a one-to-one relationship.
+    """
+
     number = models.PositiveIntegerField(validators=[MaxValueValidator(9999)])
     street = models.CharField(max_length=64)
     city = models.CharField(max_length=64)
@@ -11,15 +16,23 @@ class Address(models.Model):
     country_iso_code = models.CharField(max_length=3, validators=[MinLengthValidator(3)])
 
     def __str__(self):
+        """Return the street number and street name as a string."""
         return f'{self.number} {self.street}'
 
     class Meta:
+        """Set the plural name for the Address model in the admin interface."""
         verbose_name_plural = "addresses"
 
 
 class Letting(models.Model):
+    """Model representing a property letting.
+
+    Related to :model:`lettings.Address` via a one-to-one relationship.
+    """
+
     title = models.CharField(max_length=256)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
 
     def __str__(self):
+        """Return the letting title as a string."""
         return self.title

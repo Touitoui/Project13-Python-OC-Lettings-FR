@@ -8,10 +8,12 @@ from profiles import views as profiles_views
 
 
 def custom_page_not_found(request):
+    """Custom 404 error handler that renders the default 404 page."""
     return django.views.defaults.page_not_found(request, None)
 
 
 def custom_server_error(request):
+    """Custom 500 error handler that renders the default 500 page."""
     return django.views.defaults.server_error(request)
 
 
