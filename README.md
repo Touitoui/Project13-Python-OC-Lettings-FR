@@ -32,6 +32,26 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
 - Pour désactiver l'environnement, `deactivate`
 
+#### Paramétrer les variables d'environnement
+
+Le projet charge ses variables depuis un fichier `.env` à la racine (via `python-dotenv`).
+
+Copiez le fichier d'exemple puis éditez-le :
+
+- macOS / Linux : `cp .env.example .env`
+- Windows : `copy .env.example .env`
+
+Renseignez les variables suivantes dans `.env` :
+
+| Variable | Obligatoire | Description |
+|---|---|---|
+| `SECRET_KEY` | Oui | Clé secrète Django. Générez-en une avec `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"` |
+| `ALLOWED_HOST` | Oui | Hôte autorisé. En développement local, utilisez `localhost`. |
+| `SENTRY_DSN` | Non | DSN de votre projet Sentry. Si absent ou vide, Sentry est désactivé. |
+| `DJANGO_LOG_LEVEL` | Non | Niveau de log (`DEBUG`, `INFO`, `WARNING`…). Défaut : `INFO`. |
+
+> **Sécurité** : `.env` est listé dans `.gitignore` — ne le committez jamais.
+
 #### Exécuter le site
 
 - `cd /path/to/Python-OC-Lettings-FR`
@@ -47,11 +67,27 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `source venv/bin/activate`
 - `flake8`
 
-#### Tests unitaires
+#### Tests unitaires (avec couverture et rapport html)
 
 - `cd /path/to/Python-OC-Lettings-FR`
 - `source venv/bin/activate`
-- `pytest`
+- `pytest --cov=lettings --cov=profiles --cov=oc_lettings_site --cov-report=term-missing --cov-report html`
+
+#### Sentry
+
+Sentry est utilisé pour le suivi des erreurs en production. Il est **désactivé par défaut** si `SENTRY_DSN` est absent du `.env`.
+
+Pour l'activer :
+
+- Créez un compte sur [sentry.io](https://sentry.io) et créez un nouveau projet de type **Django**.
+- Copiez le DSN fourni par Sentry (Settings → Projects → votre projet → Client Keys).
+- Ajoutez-le dans votre `.env` :
+   ```
+   SENTRY_DSN=https://<key>@<org>.ingest.sentry.io/<project>
+   ```
+- Redémarrez le serveur. Les erreurs non gérées seront désormais remontées automatiquement dans votre tableau de bord Sentry.
+
+
 
 #### Base de données
 
@@ -75,8 +111,3 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
 
-
-#### Pytest avec coverage
-
-Pour lancer les tests et vérifier la couverture de ceux-ci, avec géneration du rapport sous format html 
-`pytest --cov=lettings --cov=profiles --cov=oc_lettings_site --cov-report=term-missing --cov-report html`
