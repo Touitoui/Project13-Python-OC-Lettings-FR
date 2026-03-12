@@ -40,7 +40,9 @@ def profile(request, username):
         logger.warning("Profile not found: username=%r", username)
         raise Http404(f"Profile for user '{username}' not found")
     except Exception as e:
-        logger.error("Unexpected error fetching profile username=%r: %s", username, e, exc_info=True)
+        logger.error(
+            "Unexpected error fetching profile username=%r: %s", username, e, exc_info=True
+        )
         sentry_sdk.capture_exception(e)
         raise
     logger.info("Profile detail accessed: username=%r", username)
