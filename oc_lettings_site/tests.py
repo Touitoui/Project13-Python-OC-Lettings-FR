@@ -1,5 +1,7 @@
-import pytest
+from django.test import RequestFactory
 from django.urls import reverse
+
+from oc_lettings_site.views import handler404, handler500
 
 
 # --- Index view ---
@@ -17,10 +19,12 @@ class TestIndexView:
 # --- Custom error handlers ---
 
 class TestErrorHandlers:
-    def test_404_page(self, client, db):
-        response = client.get("/404/")
+    def test_404_page(self, client):
+        response = client.get("/nonexistent-url-that-does-not-exist/")
         assert response.status_code == 404
 
-    def test_500_page(self, client, db):
-        response = client.get("/500/")
+    def test_500_page(self):
+        factory = RequestFactory()
+        request = factory.get("/")
+        response = handler500(request)
         assert response.status_code == 500
