@@ -9,7 +9,7 @@ Site web d'Orange County Lettings
 - Compte GitHub avec accès en lecture à ce repository
 - Git CLI
 - SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+- Interpréteur Python, version 3.6 ou supérieure, mais inférieure à 3.14 (3.10 conseillée)
 
 Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
 
@@ -74,3 +74,9 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+#### Pytest avec coverage
+
+Pour lancer les tests et vérifier la couverture de ceux-ci, avec géneration du rapport sous format html 
+`pytest --cov=lettings --cov=profiles --cov=oc_lettings_site --cov-report=term-missing --cov-report html`
