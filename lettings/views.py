@@ -1,3 +1,5 @@
+import sentry_sdk
+from django.http import Http404
 from django.shortcuts import render
 from lettings.models import Letting
 
@@ -26,7 +28,13 @@ def letting(request, letting_id):
     Returns:
         HttpResponse: Rendered letting detail page.
     """
-    letting = Letting.objects.get(id=letting_id)
+    try:
+        letting = Letting.objects.get(id=letting_id)
+    except Letting.DoesNotExist:
+        raise Http404(f"Letting with id {letting_id} not found")
+    except Exception as e:
+        sentry_sdk.capture_exception(e)
+        raise
     context = {
         'title': letting.title,
         'address': letting.address,
