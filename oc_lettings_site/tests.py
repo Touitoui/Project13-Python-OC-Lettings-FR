@@ -1,7 +1,7 @@
 from django.test import RequestFactory
 from django.urls import reverse
 
-from oc_lettings_site.views import handler404, handler500
+from oc_lettings_site.views import handler500
 
 
 # --- Index view ---
