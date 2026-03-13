@@ -29,6 +29,8 @@ WORKDIR /app
  
 # Copy application code
 COPY --chown=appuser:appuser . .
+COPY --chown=appuser:appuser entrypoint.sh /app/entrypoint.sh
+RUN sed -i 's/\r$//' /app/entrypoint.sh && chmod +x /app/entrypoint.sh
  
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -40,5 +42,5 @@ USER appuser
 # Expose the application port
 EXPOSE 8000 
  
-# Initialize DB/static assets, then start Gunicorn
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && exec gunicorn --bind 0.0.0.0:8000 --workers 3 oc_lettings_site.wsgi:application"]
+# Initialize DB/static assets, optionally create superuser, then start Gunicorn
+CMD ["/app/entrypoint.sh"]
