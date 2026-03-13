@@ -3,4 +3,5 @@
 venv
 .coverage
 htmlcov/
+doc/build/
 .env
