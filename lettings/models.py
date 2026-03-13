@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinLengthValidator
 class Address(models.Model):
     """Model representing a physical address.
 
-    Related to :model:`lettings.Letting` via a one-to-one relationship.
+    Related to :class:`lettings.models.Letting` via a one-to-one relationship.
     """
 
     number = models.PositiveIntegerField(validators=[MaxValueValidator(9999)])
@@ -27,7 +27,7 @@ class Address(models.Model):
 class Letting(models.Model):
     """Model representing a property letting.
 
-    Related to :model:`lettings.Address` via a one-to-one relationship.
+    Related to :class:`lettings.models.Address` via a one-to-one relationship.
     """
 
     title = models.CharField(max_length=256)

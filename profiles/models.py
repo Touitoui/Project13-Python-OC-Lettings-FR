@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     """Model representing a user profile.
 
-    Extends the built-in :model:`auth.User` via a one-to-one relationship
+    Extends the built-in :class:`django.contrib.auth.models.User` via a one-to-one relationship
     to store additional user information such as a favourite city.
     """
 

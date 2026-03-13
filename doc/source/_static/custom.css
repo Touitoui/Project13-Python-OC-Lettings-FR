@@ -1,0 +1,68 @@
+/* Visual refresh for the built-in pyramid theme: warmer palette, better contrast */
+
+body {
+    background-color: #f3eee6;
+    color: #2e251c;
+}
+
+div.document {
+    background-color: #f7f2ea;
+}
+
+div.body {
+    background-color: #fffaf3;
+    border-color: #e2c8a8;
+}
+
+div.header {
+    background: linear-gradient(90deg, #d97706 0%, #f59e0b 55%, #fbbf24 100%);
+    border-bottom: 2px solid #fff4e0;
+}
+
+div.related {
+    background-color: #f2dfc3;
+    color: #3f2a14;
+}
+
+div.related a,
+a,
+a .pre,
+a.headerlink {
+    color: #b45309;
+}
+
+div.related a:hover,
+a:hover,
+a:hover .pre,
+a.headerlink:hover {
+    color: #7c2d12;
+}
+
+div.sphinxsidebar h3,
+div.sphinxsidebar h4 {
+    border-bottom: 2px solid #d8b58a;
+    color: #4a2e12;
+}
+
+div.sphinxsidebar a {
+    color: #6f3b0a;
+}
+
+div.sphinxsidebar p,
+div.sphinxsidebar ul {
+    color: #5b4632;
+}
+
+div.body h1,
+div.body h2,
+div.body h3,
+div.body h4,
+div.body h5,
+div.body h6 {
+    color: #5c3410;
+}
+
+div.footer,
+div.footer a {
+    color: #fff4e0;
+}
